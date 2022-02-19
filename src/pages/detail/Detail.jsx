@@ -21,6 +21,8 @@ const Detail = () => {
   let [isRefRendered, setIsRefRendered] = useState(false);
   let [showRating, setShowRating] = useState(false);
   let [isRated, setIsRated] = useState(false);
+  let [showError, setShowError] = useState(false);
+
   useEffect(() => {
     if (JSON.parse(user).success) {
       setShowRating(true);

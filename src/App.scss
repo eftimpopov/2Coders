@@ -35,6 +35,9 @@ a {
 @media (hover: hover) {
   a:hover {
     color: $main-color;
+    p {
+      color: $main-color;
+    }
   }
 }
 button,

@@ -16,7 +16,29 @@
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+  &__info {
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
 
+    @include flex(center, space-between);
+
+    padding: 0px 0.8rem;
+
+    p {
+      font-size: 13px;
+      color: transparent;
+      transition: color 0.5s;
+      -webkit-transition: color 0.5s;
+      -moz-transition: color 0.5s;
+      -ms-transition: color 0.5s;
+      -o-transition: color 0.5s;
+
+      @include flex(center, center);
+
+      flex-direction: column;
+    }
+  }
   &::before {
     content: '';
     position: absolute;
@@ -34,7 +56,6 @@
     &:hover::before {
       opacity: 0.8;
     }
-
     &:hover .btn {
       transform: translate(-50%, -50%) scale(1);
     }

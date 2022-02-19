@@ -22,6 +22,15 @@ const MovieCard = (props) => {
         <Button>
           <i className="bx bx-play"></i>
         </Button>
+        <div className="movie-card__info">
+          <p>
+            <span>Release date:</span> <span>{item.release_date}</span>
+          </p>
+          <p>
+            <span>Popularity: </span>
+            <span>{item.popularity}</span>
+          </p>
+        </div>
       </div>
       <h3>{item.title || item.name}</h3>
     </Link>

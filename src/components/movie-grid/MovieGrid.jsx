@@ -30,7 +30,6 @@ const MovieGrid = (props) => {
       console.log('this is from here', response);
       setItems(response.results);
       setTotalPage(response.total_pages);
-      // response = await tmdbAPI.search(props.category, { params });
     };
 
     getList();
@@ -87,7 +86,7 @@ const MovieGrid = (props) => {
           </OutlineButton>
         </div>
       ) : null}
-      <ReactPaginate
+      {/*<ReactPaginate
         previousLabel={'<'}
         nextLabel={'>'}
         breakLabel={'..'}
@@ -96,50 +95,9 @@ const MovieGrid = (props) => {
         marginPagesDisplayed={1}
         pageRangeDisplayed={3}
         containerClassName="pagination"
-      />
+      />*/}
     </>
   );
 };
-
-// const MovieSearch = (props) => {
-//   const history = useHistory();
-
-//   const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
-
-//   const goToSearch = useCallback(() => {
-//     if (keyword.trim().length > 0) {
-//       history.push(`/${category[props.category]}/search/${keyword}`);
-//     } else {
-//       history.push(`/${category[props.category]}`);
-//     }
-//   }, [keyword, props.category, history]);
-
-//   useEffect(() => {
-//     const enterEvent = (e) => {
-//       e.preventDefault();
-//       if (e.keyCode === 13) {
-//         goToSearch();
-//       }
-//     };
-//     document.addEventListener('keyup', enterEvent);
-//     return () => {
-//       document.removeEventListener('keyup', enterEvent);
-//     };
-//   }, [keyword, goToSearch]);
-
-//   return (
-//     <div className="movie-search">
-//       <Input
-//         type="text"
-//         placeholder="Enter keyword"
-//         value={keyword}
-//         onChange={(e) => setKeyword(e.target.value)}
-//       />
-//       <Button className="small" onClick={goToSearch}>
-//         Search
-//       </Button>
-//     </div>
-//   );
-// };
 
 export default MovieGrid;

@@ -76,10 +76,11 @@ const Header = () => {
 const LoginModal = () => {
   const { user, setUser } = useContext(MainContext);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLogged, setIsLogged] = useState(isTokenValid);
-  const [responseData, setResponseData] = useState('');
+  let [username, setUsername] = useState('');
+  let [password, setPassword] = useState('');
+  let [isLogged, setIsLogged] = useState(isTokenValid);
+  let [responseData, setResponseData] = useState('');
+  let [hasErrorLogging, setHasErrorLogging] = useState('');
 
   const setUsernameF = (userN) => {
     setUsername((user) => (user = userN));
@@ -87,17 +88,33 @@ const LoginModal = () => {
   const setPasswordF = (userP) => {
     setPassword((pass) => (pass = userP));
   };
+  //Function to log the user in and upddate the global state of the user.
   const login = async () => {
-    let data, data1;
+    let data;
     let responseToken = null;
-    responseToken = await tmdbAPI.getToken();
+    await tmdbAPI
+      .getToken()
+      .then((res) => {
+        responseToken = res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     data = {
       username: username,
       password: password,
       request_token: responseToken.request_token,
     };
-
-    let loginUser = await tmdbAPI.loginWithUser(data);
+    let loginUser = '';
+    await tmdbAPI
+      .loginWithUser(data)
+      .then((res) => {
+        loginUser = res;
+        setHasErrorLogging(false);
+      })
+      .catch((err) => {
+        setHasErrorLogging(true);
+      });
     let sessionIdReq = await tmdbAPI.createSessionId({
       request_token: loginUser.request_token,
     });
@@ -107,6 +124,8 @@ const LoginModal = () => {
     setUser(JSON.stringify(userData));
     setIsLogged((oldVal) => (oldVal = isTokenValid()));
   };
+
+  //Function to log the user out and update the global state of the user.
   const logout = () => {
     localStorage.setItem('reactflixUser', '{"isNull" : true}');
     setUser('{"isNull" : true}');
@@ -123,13 +142,26 @@ const LoginModal = () => {
                 type="text"
                 placeholder="Username"
                 onChange={(e) => setUsernameF(e.target.value)}
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    login();
+                  }
+                }}
               />
               <input
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPasswordF(e.target.value)}
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    login();
+                  }
+                }}
               />
               <OutlineButton onClick={login}>Log in</OutlineButton>{' '}
+              {hasErrorLogging ? (
+                <span className="err">Wrong username or password</span>
+              ) : null}
             </>
           ) : (
             <div className="logout__container">
