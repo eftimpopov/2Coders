@@ -71,7 +71,15 @@
       font-size: 4rem;
       line-height: 1;
     }
-
+    .movie-rating {
+      .btn.small {
+        margin-left: 1rem;
+      }
+      .rated-success {
+        color: #75e175;
+        margin-top: 0.5rem;
+      }
+    }
     .genres {
       & > * ~ * {
         margin-left: 0.5rem;

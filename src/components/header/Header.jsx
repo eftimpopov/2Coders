@@ -7,6 +7,7 @@ import { OutlineButton } from '../button/Button';
 import tmdbAPI from '../../api/tmdbAPI';
 import { MainContext } from '../../context/main';
 import { isTokenValid } from './../../utils/helpers';
+
 const headerNav = [
   {
     display: 'Home',
@@ -106,6 +107,11 @@ const LoginModal = () => {
     setUser(JSON.stringify(userData));
     setIsLogged((oldVal) => (oldVal = isTokenValid()));
   };
+  const logout = () => {
+    localStorage.setItem('reactflixUser', '{"isNull" : true}');
+    setUser('{"isNull" : true}');
+    setIsLogged(false);
+  };
 
   return (
     <Modal active={false} id={'login-modal'}>
@@ -126,7 +132,10 @@ const LoginModal = () => {
               <OutlineButton onClick={login}>Log in</OutlineButton>{' '}
             </>
           ) : (
-            'Logged in'
+            <div className="logout__container">
+              <h3>Logged in</h3>
+              <OutlineButton onClick={logout}>Log out</OutlineButton>
+            </div>
           )}
         </div>
       </ModalContent>

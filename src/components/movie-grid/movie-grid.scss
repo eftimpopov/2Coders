@@ -34,3 +34,10 @@
     }
   }
 }
+.pagination {
+  @include flex(center, center);
+  li {
+    margin: 0px 0.5rem;
+    cursor: pointer;
+  }
+}

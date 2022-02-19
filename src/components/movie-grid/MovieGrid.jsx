@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router';
-
+import ReactPaginate from 'react-paginate';
 import './movie-grid.scss';
-
 import MovieCard from '../movie-card/MovieCard';
 import Button, { OutlineButton } from '../button/Button';
 import Input from '../input/Input';
@@ -57,6 +56,23 @@ const MovieGrid = (props) => {
     setPage(page + 1);
   };
 
+  const changePage = async (data) => {
+    let response = null;
+    const params = {
+      page: data.selected + 1,
+    };
+    switch (props.category) {
+      case category.movie:
+        response = await tmdbAPI.getMoviesList(movieType.popular, {
+          params,
+        });
+        break;
+      default:
+        response = await tmdbAPI.getTvList(tvType.popular, { params });
+    }
+    setItems(response.results);
+  };
+
   return (
     <>
       <div className="movie-grid">
@@ -71,6 +87,16 @@ const MovieGrid = (props) => {
           </OutlineButton>
         </div>
       ) : null}
+      <ReactPaginate
+        previousLabel={'<'}
+        nextLabel={'>'}
+        breakLabel={'..'}
+        pageCount={200}
+        onPageChange={changePage}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={3}
+        containerClassName="pagination"
+      />
     </>
   );
 };

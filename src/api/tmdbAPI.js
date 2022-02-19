@@ -61,8 +61,9 @@ const tmdbApi = {
       '/authentication/session/new?api_key=f1a7cb9a9b05f295ebc827fd02a81aea';
     return axiosClient.post(url, params);
   },
-  rateMove: (cate, movie_id, session_id, params) => {
-    const url = `/${category[cate]}/${movie_id}/rating?${session_id}`;
+  rate: (cate, movie_id, session_id, params) => {
+    const url = `/${category[cate]}/${movie_id}/rating?session_id=${session_id}&api_key=f1a7cb9a9b05f295ebc827fd02a81aea`;
+    console.log(url);
     return axiosClient.post(url, params);
   },
 };

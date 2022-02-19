@@ -77,6 +77,16 @@
 #login-modal {
   .modal__content {
     max-width: 400px !important;
+    .logout__container {
+      @include flex(center, center);
+      flex-direction: column;
+      .btn {
+        margin-top: 1.5rem;
+      }
+      h3 {
+        color: #75e175;
+      }
+    }
   }
   .login-form {
     @include flex(center, center);

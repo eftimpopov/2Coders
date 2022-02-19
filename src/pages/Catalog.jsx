@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../components/page-header/PageHeader';
 import { category as cat } from '../api/tmdbAPI';
 import MovieGrid from './../components/movie-grid/MovieGrid';
+import { useHistory } from 'react-router-dom';
 
 const Catalog = () => {
   const { category } = useParams();
+  let history = useHistory();
   console.log({ category });
+
   return (
     <>
       <PageHeader>{category === cat.movie ? 'Movies' : 'TV Series'}</PageHeader>

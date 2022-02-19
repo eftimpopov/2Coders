@@ -14,9 +14,20 @@ import { isTokenValid } from './../../utils/helpers';
 const Detail = () => {
   const { category, id } = useParams();
   let ratingRef = useRef(null);
+  let ratingContainerRef = useRef(null);
   const { user, setUser } = useContext(MainContext);
 
   const [item, setItem] = useState(null);
+  let [isRefRendered, setIsRefRendered] = useState(false);
+  let [showRating, setShowRating] = useState(false);
+  let [isRated, setIsRated] = useState(false);
+  useEffect(() => {
+    if (JSON.parse(user).success) {
+      setShowRating(true);
+    } else {
+      setShowRating(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     const getDetail = async () => {
@@ -27,14 +38,24 @@ const Detail = () => {
     getDetail();
   }, [category, id]);
 
-  const rateMovie = (id) => {
+  const rateMovie = async (id) => {
     let sessionId = JSON.parse(localStorage.getItem('reactflixUser')).sessionId;
     let params = {
       value: ratingRef.current.value,
     };
-    // let response = tmdbAPI.rateMove(category, id, sessionId, params);
+    let response = '';
 
-    console.log(user);
+    if (isTokenValid()) {
+      tmdbAPI
+        .rate(category, id, sessionId, params)
+        .then((res) => {
+          setIsRated(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    console.log('this is res', response);
   };
   return (
     <>
@@ -61,19 +82,34 @@ const Detail = () => {
             </div>
             <div className="movie-content__info">
               <h1 className="title">{item.title || item.name}</h1>
-              {isTokenValid() ? (
-                <div className="movie-rating">
-                  Rate your this movie:{' '}
+              {showRating ? (
+                <div
+                  ref={(e) => {
+                    ratingContainerRef.current = e;
+                    setIsRefRendered(true);
+                  }}
+                  className="movie-rating"
+                  id="movie-rating"
+                >
+                  <h4>
+                    Rate this {category == 'tv' ? 'TV series: ' : 'movie:'}
+                  </h4>
                   <input
                     ref={ratingRef}
                     type="number"
                     min="0.5"
                     max="10.0"
-                    placeholder={0}
+                    step="0.1"
+                    defaultValue={10}
                   />
                   <Button className="small" onClick={() => rateMovie(item.id)}>
                     Rate
                   </Button>
+                  {isRated ? (
+                    <div className="rated-success">
+                      Rated <i className="bx bx-check"></i>
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
 
