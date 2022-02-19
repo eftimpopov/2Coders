@@ -1,0 +1,94 @@
+@use '../../scss' as *;
+
+.modal {
+  @include flex(center, center);
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: rgba($color: $black, $alpha: 0.4);
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  &__content {
+    padding: 2rem;
+    background-color: $body-bg;
+    width: 50%;
+    opacity: 0;
+    transform: translateY(-250px);
+    -webkit-transform: translateY(-250px);
+    -moz-transform: translateY(-250px);
+    -ms-transform: translateY(-250px);
+    -o-transform: translateY(-250px);
+    transition: transform 0.6s ease, opacity 0.6 ease;
+    -webkit-transition: transform 0.6s ease, opacity 0.6 ease;
+    -moz-transition: transform 0.6s ease, opacity 0.6 ease;
+    -ms-transition: transform 0.6s ease, opacity 0.6 ease;
+    -o-transition: transform 0.6s ease, opacity 0.6 ease;
+    position: relative;
+
+    @include tablet {
+      width: 80%;
+    }
+    &__close {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &hover {
+        color: $main-color;
+      }
+    }
+    #login-modal {
+      .login-form {
+        @include flex(center, center);
+        flex-direction: column;
+        input {
+          width: 300px;
+          height: 50px;
+          margin-bottom: 1.5rem;
+        }
+        .btn {
+          width: 300px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  &.active &__content {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+}
+#login-modal {
+  .modal__content {
+    max-width: 400px !important;
+  }
+  .login-form {
+    @include flex(center, center);
+    flex-direction: column;
+    input {
+      width: 300px;
+      height: 50px;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      width: 300px;
+      height: 50px;
+    }
+  }
+}

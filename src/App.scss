@@ -31,10 +31,10 @@ body {
 a {
   text-decoration: none;
   color: unset;
-  @media (hover: hover) {
-    a:hover {
-      color: $main-color;
-    }
+}
+@media (hover: hover) {
+  a:hover {
+    color: $main-color;
   }
 }
 button,

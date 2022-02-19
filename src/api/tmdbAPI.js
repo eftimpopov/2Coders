@@ -1,4 +1,5 @@
 import axiosClient from './axiosClient';
+import apiConfig from './apiConfig';
 
 export const category = {
   movie: 'movie',
@@ -12,12 +13,12 @@ export const movieType = {
 };
 
 export const tvType = {
-  upcoming: 'upcoming',
   popular: 'popular',
+  top_rated: 'top_rated',
   on_the_air: 'on_the_air',
 };
 
-const tmdbAPI = {
+const tmdbApi = {
   getMoviesList: (type, params) => {
     const url = 'movie/' + movieType[type];
     return axiosClient.get(url, params);
@@ -26,25 +27,44 @@ const tmdbAPI = {
     const url = 'tv/' + tvType[type];
     return axiosClient.get(url, params);
   },
-  getVideos: (cat, id) => {
-    const url = category[cat] + '/' + id + 'videos';
+  getVideos: (cate, id) => {
+    const url = category[cate] + '/' + id + '/videos';
     return axiosClient.get(url, { params: {} });
   },
-  search: (cat, params) => {
-    const url = 'search/' + category[cat];
+  search: (cate, params) => {
+    const url = 'search/' + category[cate];
     return axiosClient.get(url, params);
   },
-  detail: (cat, id, params) => {
-    const url = category[cat] + '/' + id;
+  detail: (cate, id, params) => {
+    const url = category[cate] + '/' + id;
     return axiosClient.get(url, params);
   },
-  credits: (cat, id) => {
-    const url = category[cat] + '/' + id + '/credits';
+  credits: (cate, id) => {
+    const url = category[cate] + '/' + id + '/credits';
     return axiosClient.get(url, { params: {} });
   },
-  similar: (cat, id) => {
-    const url = category[cat] + '/' + id + '/similar';
+  similar: (cate, id) => {
+    const url = category[cate] + '/' + id + '/similar';
     return axiosClient.get(url, { params: {} });
+  },
+  getToken: () => {
+    const url = '/authentication/token/new';
+    return axiosClient.get(url, { params: {} });
+  },
+  loginWithUser: (params) => {
+    const url =
+      '/authentication/token/validate_with_login?api_key=f1a7cb9a9b05f295ebc827fd02a81aea';
+    return axiosClient.post(url, params);
+  },
+  createSessionId: (params) => {
+    const url =
+      '/authentication/session/new?api_key=f1a7cb9a9b05f295ebc827fd02a81aea';
+    return axiosClient.post(url, params);
+  },
+  rateMove: (cate, movie_id, session_id, params) => {
+    const url = `/${category[cate]}/${movie_id}/rating?${session_id}`;
+    return axiosClient.post(url, params);
   },
 };
-export default tmdbAPI;
+
+export default tmdbApi;
