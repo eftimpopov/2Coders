@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 const Catalog = () => {
   const { category } = useParams();
   let history = useHistory();
-  console.log({ category });
 
   return (
     <>

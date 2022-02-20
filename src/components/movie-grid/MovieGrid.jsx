@@ -27,7 +27,6 @@ const MovieGrid = (props) => {
         default:
           response = await tmdbAPI.getTvList(tvType.popular, { params });
       }
-      console.log('this is from here', response);
       setItems(response.results);
       setTotalPage(response.total_pages);
     };

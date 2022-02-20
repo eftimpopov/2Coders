@@ -25,7 +25,6 @@ const HeroSlide = () => {
           params,
         });
         setMovieItems(response.results.slice(0, 4));
-        console.log(response);
       } catch {
         console.log('error');
       }
@@ -73,7 +72,6 @@ const HeroSlideItem = (props) => {
     const modal = document.querySelector(`#modal_${item.id}`);
 
     const videos = await tmdbAPI.getVideos(category.movie, item.id);
-    console.log(videos);
     if (videos.results.length > 0) {
       const videSrc = `https://www.youtube.com/embed/${videos.results[0].key}`;
       modal

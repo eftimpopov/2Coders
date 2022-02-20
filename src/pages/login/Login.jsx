@@ -16,8 +16,6 @@ const Login = () => {
       request_token: responseToken.request_token,
     };
     responseSession = await tmdbAPI.createSession(data);
-
-    console.log(responseSession);
   };
   return (
     <div className="login-form">

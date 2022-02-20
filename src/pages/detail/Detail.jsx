@@ -57,7 +57,6 @@ const Detail = () => {
           console.log(error);
         });
     }
-    console.log('this is res', response);
   };
   return (
     <>

@@ -24,7 +24,8 @@ const MovieCard = (props) => {
         </Button>
         <div className="movie-card__info">
           <p>
-            <span>Release date:</span> <span>{item.release_date}</span>
+            <span>Release date:</span>{' '}
+            <span>{item.release_date || item.first_air_date}</span>
           </p>
           <p>
             <span>Popularity: </span>
